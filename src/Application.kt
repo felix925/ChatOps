@@ -29,7 +29,7 @@ fun Application.module(testing: Boolean = false) {
                 body {
                     h1 { +"HTML" }
                     ul {
-                        for (n in 1..10) {
+                        for (n in 1..11) {
                             li { +"$n" }
                         }
                     }
