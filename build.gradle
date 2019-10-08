@@ -41,6 +41,6 @@ dependencies {
     compile "io.ktor:ktor-client-apache:$ktor_version"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
 }
-task stage {
+stage {
     dependsOn installDist
 }
