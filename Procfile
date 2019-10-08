@@ -1,1 +1,1 @@
-web:    java -jar target/helloworld.jar
+web: ./gradlew run
