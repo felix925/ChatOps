@@ -14,7 +14,7 @@ import kotlin.test.*
 import io.ktor.server.testing.*
 
 class ApplicationTest {
-    /*@Test
+    @Test
     fun testRoot() {
         withTestApplication({ module(testing = true) }) {
             handleRequest(HttpMethod.Get, "/").apply {
@@ -22,5 +22,5 @@ class ApplicationTest {
                 assertEquals("HELLO WORLD!", response.content)
             }
         }
-    }*/
+    }
 }
