@@ -29,7 +29,7 @@ fun Application.module(testing:Boolean = false) {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-        get("/test"){
+        post("/test"){
             val testMessages = "This is response test"
             val attachement = SlackResponseAttachement(testMessages)
             val response = SlackResponse(
