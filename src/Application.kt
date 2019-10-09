@@ -31,6 +31,7 @@ fun Application.module(testing: Boolean = false) {
                 "(๑╹ω╹๑ )",
                 arrayOf(attachement)
             )
+            call.respond(response)
         }
 
     }
