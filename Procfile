@@ -1,1 +1,1 @@
-web: ./gradlew run -p $PORT
+web: ./gradlew run
