@@ -26,15 +26,14 @@ fun Application.module() {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
         post("/test"){
-//            val testMessages = "This is response test"
-//            val attachement = SlackResponseAttachement(testMessages)
-//            val response = SlackResponse(
-//                "in_channel",
-//                "(๑╹ω╹๑ )",
-//                arrayOf(attachement)
-//            )
-//            call.respond(response)
-            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
+            val testMessages = "This is response test"
+            val attachement = SlackResponseAttachement(testMessages)
+            val response = SlackResponse(
+                "in_channel",
+                "(๑╹ω╹๑ )",
+                arrayOf(attachement)
+            )
+            call.respond(response)
         }
     }
 }
