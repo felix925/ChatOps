@@ -55,3 +55,13 @@ task fatJar(type: Jar) {
     exclude "META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA"
     with jar
 }
+jar{
+    manifest{
+        attributes 'Main-Class' : 'ApplicationKt'
+    }
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
