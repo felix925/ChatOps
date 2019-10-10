@@ -1,1 +1,1 @@
-web:    java -jar target/catops-0.0.1.jar
+web: java -server -jar ./build/libs/catops-0.0.1.jar
