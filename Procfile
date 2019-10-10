@@ -1,1 +1,1 @@
-web: ./gradlew run
+web:    java -jar target/catops-0.0.1.jar
