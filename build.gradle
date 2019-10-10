@@ -44,3 +44,8 @@ dependencies {
     compile "io.ktor:ktor-jackson:$ktor_version"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
 }
+jar{
+    manifest{
+        attributes 'Main-Class':'ApplicationKt'
+    }
+}
