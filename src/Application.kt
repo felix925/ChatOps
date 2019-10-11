@@ -32,9 +32,12 @@ fun Application.module() {
                 "(๑╹ω╹๑ )",
                 arrayOf(attachement)
             )
-            val pb = ProcessBuilder("curl","-X POST -H \"Authorization: token 5eb6b6a7e957065f71f2108bcdf5210525742fd2\" -H \"Accept: application/vnd.github.everest-preview+json\" -d '{\"event_type\": \"custom.preview\"}' -i  https://api.github.com/repos/SoyBeansLab/daizu-ChatOps/dispatches")
-            pb.start()
             call.respond(response)
+        }
+        get("/token"){
+            val heroku = ProcessBuilder("heroku","config:get ENV_VAR")
+            val token = heroku.start()
+            call.respondText(token.inputStream.toString())
         }
     }
 }
