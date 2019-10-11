@@ -7,13 +7,7 @@ class CallApi(val repository: Repository){
     fun CallTest(){
         val pb = ProcessBuilder(
             "curl",
-            "-X",
-            "POST -H",
-            "\"Authorization: token ${TOKEN}\" ",
-            "-H \"Accept: application/vnd.github.everest-preview+json\"",
-            "-d '{\"event_type\": \"custom.preview\"}'",
-            "-i",
-            "https://api.github.com/repos/SoyBeansLab/${repository}/dispatches"
+            "-X POST -H \"Authorization: token ${TOKEN}\" -H \"Accept: application/vnd.github.everest-preview+json\" -d '{\"event_type\": \"custom.preview\"}' -i https://api.github.com/repos/SoyBeansLab/${repository}/dispatches"
         )
         pb.start()
     }
