@@ -32,10 +32,10 @@ fun Application.module() {
                 "(๑╹ω╹๑ )",
                 arrayOf(attachement)
             )
+            val repo = Repository()
+            val caller = CallApi(repo)
+            caller.CallTest()
             call.respond(response)
-        }
-        get("/token"){
-            call.respond(System.getenv("TOKEN"))
         }
     }
 }
