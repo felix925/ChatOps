@@ -46,7 +46,7 @@ fun Application.module() {
 
             BufferedReader(InputStreamReader(token.inputStream, Charset.defaultCharset())).use { r ->
                 while (r != null) {
-                    println(r.toString())
+                    call.respondText(r.toString())
                 }
             }
         }
