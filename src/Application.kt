@@ -32,6 +32,8 @@ fun Application.module() {
                 "(๑╹ω╹๑ )",
                 arrayOf(attachement)
             )
+            val callApi = CallAPI()
+            callApi.CallTest()
             call.respond(response)
         }
     }
