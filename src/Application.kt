@@ -11,6 +11,12 @@ import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
+import jdk.nashorn.internal.runtime.ScriptingFunctions.readLine
+import java.nio.charset.Charset
+import java.io.InputStreamReader
+import java.io.BufferedReader
+
+
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -35,10 +41,14 @@ fun Application.module() {
             call.respond(response)
         }
         get("/token"){
-            val heroku = ProcessBuilder("heroku","config:get ENV_VAR")
+            val heroku = ProcessBuilder("heroku","config:get","ENV_VAR")
             val token = heroku.start()
-            val input = token.inputStream
-            call.respond(input)
+
+            BufferedReader(InputStreamReader(token.inputStream, Charset.defaultCharset())).use { r ->
+                while (r != null) {
+                    println(r.toString())
+                }
+            }
         }
     }
 }
