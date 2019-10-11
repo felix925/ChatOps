@@ -37,7 +37,8 @@ fun Application.module() {
         get("/token"){
             val heroku = ProcessBuilder("heroku","config:get ENV_VAR")
             val token = heroku.start()
-            call.respondText(token.inputStream.toString())
+            val input = token.inputStream
+            call.respond(input)
         }
     }
 }
