@@ -1,5 +1,6 @@
 package jp.making.felix
 
+import com.sun.tools.javac.comp.Env
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -42,16 +43,7 @@ fun Application.module() {
             call.respond(response)
         }
         get("/token"){
-            val heroku = ProcessBuilder("heroku","config:get","ENV_VAR")
-            val token = heroku.start()
-
-            BufferedReader(InputStreamReader(token.inputStream, Charset.defaultCharset())).use { r ->
-                var line:String = ""
-                for (i in r.lines()){
-                    line = i
-                }
-                call.respondText(line)
-            }
+            call.respond(System.getenv("TOKEN"))
         }
     }
 }
