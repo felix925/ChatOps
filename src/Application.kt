@@ -12,6 +12,7 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
 import jdk.nashorn.internal.runtime.ScriptingFunctions.readLine
+import kotlinx.css.i
 import java.nio.charset.Charset
 import java.io.InputStreamReader
 import java.io.BufferedReader
@@ -45,9 +46,11 @@ fun Application.module() {
             val token = heroku.start()
 
             BufferedReader(InputStreamReader(token.inputStream, Charset.defaultCharset())).use { r ->
-                while (r != null) {
-                    call.respondText(r.toString())
+                var line:String = ""
+                for (i in r.lines()){
+                    line = i
                 }
+                call.respondText(line)
             }
         }
     }
