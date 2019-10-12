@@ -25,7 +25,7 @@ fun Application.module() {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-        post("/test"){
+        get("/test"){
             val testMessages = "This is response test"
             val attachement = SlackResponseAttachement(testMessages)
             val response = SlackResponse(
@@ -35,8 +35,7 @@ fun Application.module() {
             )
             val repo = Repository()
             val caller = CallApi(repo)
-            caller.CallTest()
-            call.respond(response)
+            call.respond(caller.CallTest())
         }
     }
 }
