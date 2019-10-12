@@ -7,7 +7,7 @@ data class Repository(val value: String = "daizu-ChatOps")
 
 class CallApi(repository: Repository){
     private val TOKEN:String = System.getenv("TOKEN")
-    private val command = "curl -X POST -H \"Authorization: token ${TOKEN}\" -H \"Accept: application/vnd.github.everest-preview+json\" -H\"Content-Type: application/json\" -d '{\"event_type\": \"custom.preview\"}' -i  https://api.github.com/repos/SoyBeansLab/${repository}/dispatches"
+    private val command = "curl -X POST -H \"Authorization: token ${TOKEN}\" -H \"Accept: application/vnd.github.v3+json\" -H\"Content-Type: application/json\" -d '{\"event_type\": \"custom.preview\"}' -i  https://api.github.com/repos/SoyBeansLab/${repository}/dispatches"
     fun CallTest():String{
         command.runCommand()?.apply {
             return this
