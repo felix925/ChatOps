@@ -35,7 +35,8 @@ fun Application.module() {
             )
             val repo = Repository()
             val caller = CallApi(repo)
-            call.respond(attachement)
+            caller.CallTest()
+            call.respond(response)
         }
     }
 }
