@@ -21,8 +21,8 @@ class CallApi(repository: Repository){
         try {
             val parts = this.split("¥".toRegex())
             val proc = ProcessBuilder(*parts.toTypedArray())
-//                .redirectOutput(ProcessBuilder.Redirect.PIPE)
-//                .redirectError(ProcessBuilder.Redirect.PIPE)
+                .redirectOutput(ProcessBuilder.Redirect.PIPE)
+                .redirectError(ProcessBuilder.Redirect.PIPE)
                 .start()
 
             proc.waitFor(60, TimeUnit.MINUTES)
