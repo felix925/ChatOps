@@ -37,6 +37,18 @@ fun Application.module() {
             val caller = CallApi(repo)
             call.respond(caller.CallTest())
         }
+        get("/testresult"){
+            val testMessages = "This is response test"
+            val attachement = SlackResponseAttachement(testMessages)
+            val response = SlackResponse(
+                "in_channel",
+                "(๑╹ω╹๑ )",
+                arrayOf(attachement)
+            )
+            val repo = Repository()
+            val caller = CallApi(repo)
+            call.respond(caller.CallTest())
+        }
     }
 }
 
