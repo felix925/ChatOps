@@ -8,8 +8,8 @@ data class Repository(val value: String = "daizu-ChatOps")
 
 class CallApi(repository: Repository){
     private val TOKEN:String = System.getenv("TOKEN")
-    private val command = "curl¥ POST ¥-H ¥\"Accept: application/vnd.github.everest-preview+json\" ¥-d ¥'{\"event_type\":\"custom.preview\"}' ¥-i ¥https://api.github.com/repos/SoyBeansLab/${repository.value}/dispatches?access_token=${TOKEN}"
-    //private val command = "curl -i https://api.github.com/users/defunkt"
+    //private val command = "curl¥ POST ¥-H ¥\"Accept: application/vnd.github.everest-preview+json\" ¥-d ¥'{\"event_type\":\"custom.preview\"}' ¥-i ¥https://api.github.com/repos/SoyBeansLab/${repository.value}/dispatches?access_token=${TOKEN}"
+    private val command = "curl \"https://api.github.com/user?access_token=${TOKEN}\""
     fun CallTest():String{
         val commands = command.replace("\\","")
         commands.runCommand()?.apply {
@@ -19,7 +19,7 @@ class CallApi(repository: Repository){
     }
     fun String.runCommand():String? {
         try {
-            val parts = this.split("¥".toRegex())
+            val parts = this.split(" ".toRegex())
             val proc = ProcessBuilder(*parts.toTypedArray())
                 .redirectOutput(ProcessBuilder.Redirect.PIPE)
                 .redirectError(ProcessBuilder.Redirect.PIPE)
