@@ -34,7 +34,8 @@ class CallApi(repository: Repository){
     }
     fun tester():String{
         val commands = command.replace("\\","")
-        return commands
+        val truecommands = commands.replace("¥","")
+        return truecommands
     }
 }
 
