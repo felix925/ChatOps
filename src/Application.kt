@@ -10,6 +10,7 @@ import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.post
+import io.ktor.routing.route
 import io.ktor.routing.routing
 
 
@@ -25,26 +26,21 @@ fun Application.module() {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-        post("/test"){
-            val testMessages = "This is response test"
-            val attachement = SlackResponseAttachement(testMessages)
-            val response = SlackResponse(
-                "in_channel",
-                "(๑╹ω╹๑ )",
-                arrayOf(attachement)
-            )
-            val repo = Repository()
-            val caller = CallApi(repo)
-            call.respond(caller.CallTest())
+        route("/test"){
+            post("") {
+                val repo = Repository()
+                val caller = CallApi(repo)
+                call.respond(caller.accessCode())
+            }
+            post("?code={code}"){
+                val code:String? = call.parameters["code"]
+                code?.apply {
+                    call.respond(this)
+                }
+                call.respondText("failed")
+            }
         }
         get("/testresult"){
-            val testMessages = "This is response test"
-            val attachement = SlackResponseAttachement(testMessages)
-            val response = SlackResponse(
-                "in_channel",
-                "(๑╹ω╹๑ )",
-                arrayOf(attachement)
-            )
             val repo = Repository()
             val caller = CallApi(repo)
             call.respond(caller.CallTest())
