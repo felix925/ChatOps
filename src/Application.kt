@@ -35,7 +35,7 @@ fun Application.module() {
             post("?code={code}"){
                 val code:String? = call.parameters["code"]
                 code?.apply {
-                    call.respond(this)
+                    call.respond(this + "success")
                 }
                 call.respondText("failed")
             }
