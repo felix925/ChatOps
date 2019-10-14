@@ -27,7 +27,7 @@ class CallApi(repository: Repository){
     }
     fun String.runCommand():String? {
         try {
-            val parts = this.split("¥".toRegex())
+            val parts = this.split(" ".toRegex())
             val proc = ProcessBuilder(*parts.toTypedArray())
                 .redirectOutput(ProcessBuilder.Redirect.PIPE)
                 .redirectError(ProcessBuilder.Redirect.PIPE)
