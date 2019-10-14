@@ -11,17 +11,19 @@ class CallApi(repository: Repository){
     private val TOKEN:String = System.getenv("APITOKEN")
     private val APPID:String = System.getenv("CL_ID")
     private val APPSEC:String = System.getenv("CL_SEC")
-    private val code:String = System.getenv("CODE")
-    private val getkey:String = ""
-    private val command = "curl¥ POST ¥-H ¥\"Accept: application/vnd.github.everest-preview+json\" ¥-d ¥'{\"event_type\":\"custom.preview\"}' ¥-i ¥https://api.github.com/repos/SoyBeansLab/${repository.value}/dispatches?access_token=${TOKEN}"
-    //private val command = "curl -u felix925 -d '{\"scopes”:[“workflow”],”note”:”ChatOpsAPI”}’  https://api.github.com/authorizations"
+    private val getkey:String = "https://github.com/login/oauth/authorize?client_id={APPID}&scope=public_repo"
+    //private val command = "curl¥ POST ¥-H ¥\"Accept: application/vnd.github.everest-preview+json\" ¥-d ¥'{\"event_type\":\"custom.preview\"}' ¥-i ¥https://api.github.com/repos/SoyBeansLab/${repository.value}/dispatches?access_token=${TOKEN}"
+    private val command = ""
     fun CallTest():String{
         val commands = command.replace("\\","")
-        commands.runCommand()?.apply{
+        getkey.runCommand()?.trimCode()?.apply {
             return this
         }
         return ""
-
+//        commands.runCommand()?.apply{
+//            return this
+//        }
+//        return ""
     }
     fun String.runCommand():String? {
         try {
@@ -43,5 +45,10 @@ class CallApi(repository: Repository){
         val truecommands = commands.replace("¥","")
         return truecommands
     }
+    fun String.trimCode():String{
+        val commands = this.split("=")
+        return commands[1]
+    }
+
 }
 
