@@ -16,7 +16,7 @@ class CallApi(repository: Repository){
     private val command = ""
     fun CallTest():String{
         val commands = command.replace("\\","")
-        getkey.runCommand()?.trimCode()?.apply {
+        getkey.runCommand()?.apply {
             return this
         }
         return ""
