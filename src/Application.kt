@@ -27,7 +27,7 @@ fun Application.module() {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
         route("/test"){
-            post("") {
+            get("") {
                 val repo = Repository()
                 val caller = CallApi(repo)
                 call.respond(caller.accessCode())
