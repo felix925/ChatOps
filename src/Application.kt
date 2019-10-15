@@ -23,8 +23,7 @@ fun Application.module() {
     }
 
     routing {
-        get("/{name}") {
-            val name: String? = call.parameters["name"]
+        get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
 //        get("/test") {
@@ -32,12 +31,20 @@ fun Application.module() {
 //            val caller = CallApi(repo)
 //            call.respond(caller.accessCode())
 //        }
-        get("/test?code={code}") {
-            val code: String? = call.parameters["code"]
-            code?.apply {
-                call.respond(this + "success")
+        route("/test") {
+            route("/") {
+                get {
+                    val code: String? = call.parameters["code"]
+                    code?.apply {
+                        call.respond(this + "success")
+                    }
+                    if(code == null)
+                        call.respondText("/?code= failed")
+                }
             }
-            call.respondText("failed")
+            get{
+                call.respondText("/test routing")
+            }
         }
         get("/testresult"){
             val repo = Repository()
