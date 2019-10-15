@@ -26,27 +26,18 @@ fun Application.module() {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-//        get("/test") {
-//            val repo = Repository()
-//            val caller = CallApi(repo)
-//            call.respond(caller.accessCode())
-//        }
-        route("/test") {
-            route("/") {
-                get {
-                    val code: String? = call.parameters["code"]
-                    code?.apply {
-                        call.respond(this + "success")
-                    }
-                    if(code == null)
-                        call.respondText("/?code= failed")
-                }
+        post("/test") {
+            val repo = Repository()
+            val caller = CallApi(repo)
+            call.respond(caller.accessCode())
+        }
+        get("/result"){
+            val code: String? = call.parameters["code"]
+            code?.apply {
+                call.respond(this + "success")
             }
-            post{
-                val repo = Repository()
-                val caller = CallApi(repo)
-                call.respond(caller.accessCode())
-            }
+            if(code == null)
+                call.respondText("/?code= failed")
         }
         get("/testresult"){
             val repo = Repository()

@@ -14,13 +14,9 @@ class CallApi(repository: Repository){
     private var code:String = "start https://github.com/login/oauth/authorize?client_id=$APPID&scope=repo"
     private val token:String = "curl -X POST -d \"code=$code\" -d \"client_id=$APPID\" -d \"client_secret=$APPSEC\" https://github.com/login/oauth/access_token"
     private val command = "curl¥ REST ¥-H ¥\"Accept: application/vnd.github.everest-preview+json\" ¥-d ¥'{\"event_type\":\"custom.preview\"}' ¥-i ¥https://api.github.com/repos/SoyBeansLab/${repository.value}/dispatches?access_token=${TOKEN}"
-    fun CallTest():String{
+    fun CallTest(){
         val commands = command.replace("\\","")
         val tokens = token.replace("\\","")
-        code.runCommand()?.apply {
-            return this
-        }
-        return ""
     }
     fun String.runCommand():String? {
         try {
