@@ -23,7 +23,8 @@ fun Application.module() {
     }
 
     routing {
-        get("/") {
+        get("/{name}") {
+            val name: String? = call.parameters["name"]
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
 //        get("/test") {
