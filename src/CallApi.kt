@@ -2,8 +2,7 @@ package jp.making.felix
 
 import java.io.IOException
 import java.util.concurrent.TimeUnit
-import java.awt.Desktop as desktop
-import java.net.URI
+
 
 data class Repository(val value: String = "daizu-ChatOps")
 
@@ -35,7 +34,6 @@ class CallApi(repository: Repository){
         }
     }
     fun accessCode(){
-        desktop.getDesktop().browse(URI(code))
     }
 }
 
