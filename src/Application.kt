@@ -26,12 +26,12 @@ fun Application.module() {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-        get("/test") {
-            val repo = Repository()
-            val caller = CallApi(repo)
-            call.respond(caller.accessCode())
-        }
-        post("/test?code={code}") {
+//        get("/test") {
+//            val repo = Repository()
+//            val caller = CallApi(repo)
+//            call.respond(caller.accessCode())
+//        }
+        get("/test?code={code}") {
             val code: String? = call.parameters["code"]
             code?.apply {
                 call.respond(this + "success")
