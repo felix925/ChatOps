@@ -42,8 +42,10 @@ fun Application.module() {
                         call.respondText("/?code= failed")
                 }
             }
-            get{
-                call.respondText("/test routing")
+            post{
+                val repo = Repository()
+                val caller = CallApi(repo)
+                call.respond(caller.accessCode())
             }
         }
         get("/testresult"){

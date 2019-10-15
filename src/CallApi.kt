@@ -37,8 +37,11 @@ class CallApi(repository: Repository){
             return null
         }
     }
-    fun accessCode(){
-
+    fun accessCode():String{
+        code.runCommand()?.apply {
+            return this
+        }
+        return "failed"
     }
 }
 
