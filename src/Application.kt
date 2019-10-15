@@ -21,7 +21,6 @@ fun Application.module() {
     install(ContentNegotiation){
         jackson {}
     }
-
     routing {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
