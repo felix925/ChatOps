@@ -5,6 +5,7 @@ import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.http.ContentType
+import io.ktor.http.takeFrom
 import io.ktor.jackson.jackson
 import io.ktor.response.respond
 import io.ktor.response.respondRedirect
@@ -39,7 +40,9 @@ fun Application.module() {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
         post("/test") {
-            call.respondRedirect(code)
+            call.respondRedirect {
+                this.takeFrom(code)
+            }
         }
         get("/result"){
         }
