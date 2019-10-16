@@ -22,12 +22,6 @@ fun Application.module() {
     install(ContentNegotiation){
         jackson {}
     }
-    install(Sessions) {
-        cookie<GitHubSession>("GitHubSession", SessionStorageMemory())
-    }
-    install(Routing)
-    install(Sessions)
-
     val TOKEN:String = System.getenv("APITOKEN")
     val APPID:String = System.getenv("CL_ID")
     val APPSEC:String = System.getenv("CL_SEC")
