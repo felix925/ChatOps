@@ -33,10 +33,8 @@ fun Application.module() {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-        post("/test") {
-            call.respondRedirect {
-                this.takeFrom(code)
-            }
+        get("/test") {
+            call.respondRedirect(code)
         }
         get("/result"){
             call.respondText("result")
