@@ -45,8 +45,10 @@ fun Application.module() {
             }
         }
         get("/result"){
+            call.respondText("result")
         }
         get("/testresult"){
+            call.respondText("testresult")
         }
     }
 }
