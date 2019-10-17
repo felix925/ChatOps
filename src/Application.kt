@@ -27,7 +27,7 @@ fun Application.module() {
     val TOKEN:String = System.getenv("APITOKEN")
     val APPID:String = System.getenv("CL_ID")
     val APPSEC:String = System.getenv("CL_SEC")
-    var code:String = "https://github.com/login/oauth/authorize?client_id=$APPID&scope=repo,workflow"
+    var code:String = "curl https://github.com/login/oauth/authorize?client_id=$APPID&scope=repo,workflow"
     val tokens:String = "curl -X POST -d \"code=$code\" -d \"client_id=$APPID\" -d \"client_secret=$APPSEC\" https://github.com/login/oauth/access_token"
     val commands:String = "curl -X POST -H \"Authorization: token ${TOKEN}\" -H \"Accept: application/vnd.github.everest-preview+json\" -d '{\"event_type\": \"custom.preview\"}' -i  https://api.github.com/repos/SoyBeansLab/daizu-ChatOps/dispatches"
 
