@@ -38,7 +38,7 @@ fun Application.module() {
         get("/test") {
             val repo = Repository()
             val calls = CallApi(repo)
-            val command = Command(commands)
+            val command = Command(tokens)
             val result = calls.CallTest(command)
             call.respond(result)
         }
