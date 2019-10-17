@@ -5,7 +5,12 @@ import java.util.concurrent.TimeUnit
 
 class CallApi(repository: Repository){
 
-    fun CallTest(command:Command,token: Token){
+    fun CallTest(command:Command):String{
+        val result = command.toString().runCommand()
+        result?.apply {
+            return this
+        }
+        return "fail"
     }
     fun String.runCommand():String? {
         try {
