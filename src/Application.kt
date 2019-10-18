@@ -26,20 +26,22 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 @Suppress("unused") // Referenced in application.conf
 fun Application.module() {
-    install(ContentNegotiation){
+    install(ContentNegotiation) {
         jackson {}
     }
-    install(Sessions){
-        cookie<GitHubSession>("GitHubSession",SessionStorageMemory())
+    install(Sessions) {
+        cookie<GitHubSession>("GitHubSession", SessionStorageMemory())
     }
     install(Routing)
 
-    val TOKEN:String = System.getenv("APITOKEN")
-    val APPID:String = System.getenv("CL_ID")
-    val APPSEC:String = System.getenv("CL_SEC")
-    var code:String = "curl https://github.com/login/oauth/authorize?client_id=$APPID&scope=repo,workflow"
-    val tokens:String = "curl -X POST -d \"code=$code\" -d \"client_id=$APPID\" -d \"client_secret=$APPSEC\" https://github.com/login/oauth/access_token"
-    val commands:String = "curl -X POST -H \"Authorization: token ${TOKEN}\" -H \"Accept: application/vnd.github.everest-preview+json\" -d '{\"event_type\": \"custom.preview\"}' -i  https://api.github.com/repos/SoyBeansLab/daizu-ChatOps/dispatches"
+    val TOKEN: String = System.getenv("APITOKEN")
+    val APPID: String = System.getenv("CL_ID")
+    val APPSEC: String = System.getenv("CL_SEC")
+    var code: String = "curl https://github.com/login/oauth/authorize?client_id=$APPID&scope=repo,workflow"
+    val tokens: String =
+        "curl -X POST -d \"code=$code\" -d \"client_id=$APPID\" -d \"client_secret=$APPSEC\" https://github.com/login/oauth/access_token"
+    val commands: String =
+        "curl -X POST -H \"Authorization: token ${TOKEN}\" -H \"Accept: application/vnd.github.everest-preview+json\" -d '{\"event_type\": \"custom.preview\"}' -i  https://api.github.com/repos/SoyBeansLab/daizu-ChatOps/dispatches"
     val exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 4)
     val gitHubOAuth2Settings = OAuthServerSettings.OAuth2ServerSettings(
         name = "github",
@@ -54,17 +56,17 @@ fun Application.module() {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-//        get("/test") {
+        get("/test") {
 //            val repo = Repository()
 //            val calls = CallApi(repo)
 //            val command = Command(code)
 //            val result = calls.CallTest(command)
 //            call.respond(result)
-//        }
-        get("/result"){
+        }
+        get("/result") {
             call.respondText("result")
         }
-        get("/testresult"){
+        get("/testresult") {
             call.respondText("testresult")
         }
     }
