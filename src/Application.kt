@@ -23,7 +23,7 @@ fun Application.module() {
     val TOKEN: String = System.getenv("APITOKEN")
     val APPID: String = System.getenv("CL_ID")
     val APPSEC: String = System.getenv("CL_SEC")
-    @Location("/test") class some
+    //@Location("/test") class some
 
 
 
@@ -34,10 +34,10 @@ fun Application.module() {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-        location<some>{
-            get("") {
-                call.respond("somenow")
-            }
-        }
+//        location<some>{
+//            get("") {
+//                call.respond("somenow")
+//            }
+//        }
     }
 }
