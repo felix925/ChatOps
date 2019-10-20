@@ -1,0 +1,23 @@
+name: CI
+
+on: repository_dispatch
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Run a one-line script
+      run: echo Hello, world!
+
+      
+    - name: Slack Notification
+      uses: homoluctus/slatify@master
+      if: always()  # jobの成否に関わらずSlackへ通知
+      with:
+        type: ${{ job.status }}  # jobの成否を代入(Failure/Success)
+        job_name: '*Lint Check*'
+        channel: '#random'
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
