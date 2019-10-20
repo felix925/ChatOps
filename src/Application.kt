@@ -76,7 +76,7 @@ fun Application.module() {
             comment?.apply{
                 val response = SlackResponse(
                     "in_channel",
-                    "${comment}",
+                    "${comment} + ' in comment'",
                     ""
                 )
                 call.respond(response)
