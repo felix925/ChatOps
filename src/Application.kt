@@ -66,8 +66,9 @@ fun Application.module() {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-        get("/test") {
+        post("/test{hoge}") {
             val message = call.parameters["message"]
+            val comment = call.parameters["hoge"]
 //            if (call.sessions.get<GitHubSession>() != null) {
 //                LoginWithGitHub()
 //            }
@@ -78,6 +79,9 @@ fun Application.module() {
 //            call.respond(result)
             message?.apply {
                 call.respond(message)
+            }
+            comment?.apply{
+                call.respond(comment)
             }
             call.respond("failed")
         }
