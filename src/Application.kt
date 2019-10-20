@@ -33,7 +33,7 @@ fun Application.module() {
         }
         post("/test") {
             val caller = CallApi()
-            val callResult:String = caller.CallTest(commands)
+            val callResult:String = caller.CallTest(code)
             call.respond(callResult)
         }
     }
