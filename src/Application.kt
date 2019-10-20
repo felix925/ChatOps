@@ -32,10 +32,9 @@ fun Application.module() {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
         post("/test") {
-//            val caller = CallApi()
-//            val result = caller.CallTest(commands)
-//            call.respond(result)
-            call.respondText("Hello,World!")
+            val caller = CallApi()
+            val callResult:String = caller.CallTest(commands)
+            call.respond(callResult)
         }
     }
 }

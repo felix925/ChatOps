@@ -9,7 +9,7 @@ class CallApi(){
         result?.apply {
             return this
         }
-        return "fail"
+        return "failed"
     }
     fun String.runCommand():String? {
         try {
