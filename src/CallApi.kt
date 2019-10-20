@@ -27,6 +27,7 @@ class CallApi(repository: Repository){
             return null
         }
     }
+    private fun getCode(appId:)
 
 }
 
