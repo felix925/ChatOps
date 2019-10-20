@@ -30,7 +30,7 @@ fun Application.module() {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
 
-        get("/test") {
+        post("/test") {
             val comment:String? = call.parameters["comment"]
             comment?.run{
                 call.respond(this)
