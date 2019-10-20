@@ -9,7 +9,10 @@ import io.ktor.client.engine.apache.Apache
 import io.ktor.features.ContentNegotiation
 import io.ktor.http.ContentType
 import io.ktor.jackson.jackson
-import io.ktor.locations.*
+import io.ktor.locations.Location
+import io.ktor.locations.location
+import io.ktor.locations.locations
+import io.ktor.locations.url
 import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.*
