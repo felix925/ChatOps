@@ -31,7 +31,7 @@ fun Application.module() {
         }
 
         post("/test") {
-            val comment:String? = call.parameters["comment"]
+            val comment:String? = call.parameters["text"]
             comment?.run{
                 call.respond(this)
             }
