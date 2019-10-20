@@ -31,10 +31,11 @@ fun Application.module() {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-        get("/test") {
-            val caller = CallApi()
-            val result = caller.CallTest(commands)
-            call.respond(result)
+        post("/test") {
+//            val caller = CallApi()
+//            val result = caller.CallTest(commands)
+//            call.respond(result)
+            call.respondText("Hello,World!")
         }
     }
 }
