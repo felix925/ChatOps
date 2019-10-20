@@ -27,19 +27,19 @@ fun Application.module() {
     val APPID: String = System.getenv("CL_ID")
     val APPSEC: String = System.getenv("CL_SEC")
 
-
+    @Location("/test") class Message()
 
     routing {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-        @Location("/test")
-            data class Message(val message: String?)
-            get<Message> {param->
-                param.message?.apply {
-                    call.respond(param.message)
+
+            get<Message> {
+                val comment:String? = call.parameters["comment"]
+                comment?.run{
+                    call.respond(this)
                 }
-                call.respond("failed")
+                call.respondText("failed")
 
             }
     }
