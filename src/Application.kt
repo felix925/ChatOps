@@ -7,6 +7,7 @@ import io.ktor.features.ContentNegotiation
 import io.ktor.http.ContentType
 import io.ktor.jackson.jackson
 import io.ktor.locations.get
+import io.ktor.request.uri
 import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.*
@@ -31,11 +32,8 @@ fun Application.module() {
         }
 
         post("/test") {
-            val comment:String? = call.parameters["text"]
-            comment?.run{
-                call.respond(this)
-            }
-            call.respondText("failed")
+            val comment:String = call.request.uri
+            call.respondText(comment)
         }
     }
 }
