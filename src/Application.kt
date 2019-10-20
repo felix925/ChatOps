@@ -30,13 +30,12 @@ fun Application.module() {
     @Location("/test")
         data class Message(val message: String = "")
 
-        routing {
-            get("/") {
-                call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
-            }
-            get<Message>{param->
-                call.respond("somenow")
-            }
+    routing {
+        get("/") {
+            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
+        }
+        get<Message>{param->
+            call.respond("somenow")
         }
     }
 }
