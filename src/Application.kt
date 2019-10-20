@@ -21,8 +21,6 @@ import java.util.concurrent.Executors
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
-
-
 @Suppress("unused") // Referenced in application.conf
 fun Application.module() {
     install(ContentNegotiation) {
@@ -31,16 +29,15 @@ fun Application.module() {
 //    install(Sessions) {
 //        cookie<GitHubSession>("GitHubSession", SessionStorageMemory())
 //    }
-//    install(Routing)
-//    install(Sessions)
+    install(Routing)
+    install(Sessions)
 
     val TOKEN: String = System.getenv("APITOKEN")
     val APPID: String = System.getenv("CL_ID")
     val APPSEC: String = System.getenv("CL_SEC")
     var code: String = "curl https://github.com/login/oauth/authorize?client_id=$APPID&scope=repo,workflow"
     val tokens: String = "curl -X POST -d \"code=\" -d \"client_id=$APPID\" -d \"client_secret=$APPSEC\" https://github.com/login/oauth/access_token"
-    val commands: String =
-        "curl -X POST -H \"Authorization: token ${TOKEN}\" -H \"Accept: application/vnd.github.everest-preview+json\" -d '{\"event_type\": \"custom.preview\"}' -i  https://api.github.com/repos/SoyBeansLab/daizu-ChatOps/dispatches"
+    val commands: String = "curl -X POST -H \"Authorization: token ${TOKEN}\" -H \"Accept: application/vnd.github.everest-preview+json\" -d '{\"event_type\": \"custom.preview\"}' -i  https://api.github.com/repos/SoyBeansLab/daizu-ChatOps/dispatches"
     val exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 4)
 
     val gitHubOAuth2Settings = listOf(
@@ -67,7 +64,6 @@ fun Application.module() {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
         post("/test{hoge}") {
-            val message = call.parameters["message"]
             val comment = call.parameters["hoge"]
 //            if (call.sessions.get<GitHubSession>() != null) {
 //                LoginWithGitHub()
@@ -77,13 +73,20 @@ fun Application.module() {
 //            val command = Command(code)
 //            val result = calls.CallTest(command)
 //            call.respond(result)
-            message?.apply {
-                call.respond(message)
-            }
             comment?.apply{
-                call.respond(comment)
+                val response = SlackResponse(
+                    "in_channel",
+                    "${comment}",
+                    ""
+                )
+                call.respond(response)
             }
-            call.respond("failed")
+            val responses = SlackResponse(
+                "in_channel",
+                "failed",
+                ""
+            )
+            call.respond(responses)
         }
         get("/result") {
             call.respondText("result")
