@@ -32,8 +32,8 @@ fun Application.module() {
         }
 
         post("/test") {
-            val comment:String = call.request.uri
-            call.respondText(comment)
+            val comment = call.request.headers
+            call.respond(comment)
         }
     }
 }
