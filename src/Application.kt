@@ -15,6 +15,11 @@ import io.ktor.response.respondText
 import io.ktor.routing.*
 import io.ktor.routing.get
 
+data class SlackResponse(
+    val response_type: String,
+    val text: String
+)
+
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 @Suppress("unused") // Referenced in application.conf
@@ -36,10 +41,10 @@ fun Application.module() {
         post("/test") {
             val comment = call.receiveText().split("text=")
             val text:String = comment[1].split("&")[0]
+            val res = SlackResponse("in_channel","${text}を受け取りました！")
 
 
-
-            call.respond(text)
+            call.respond(res)
         }
     }
 }
