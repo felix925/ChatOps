@@ -3,9 +3,9 @@ package jp.making.felix
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-class CallApi(repository: Repository){
-    fun CallTest(command:Command):String{
-        val result = command.toString().runCommand()
+class CallApi(repository:String){
+    fun CallTest(command:String):String{
+        val result = command.runCommand()
         result?.apply {
             return this
         }
