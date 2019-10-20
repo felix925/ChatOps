@@ -106,7 +106,7 @@ fun Application.module() {
             }
 
             // 認証後(OAuth2フローでcallbackとして戻ってきてから)の処理)
-            handle { TODO("認証後の処理") }
+            handle {  }
         //}
     }*/
 }
