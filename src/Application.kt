@@ -34,8 +34,12 @@ fun Application.module() {
         }
 
         post("/test") {
-            val comment = call.receiveText()
-            call.respond(comment)
+            val comment = call.receiveText().split("text=")
+            val text:String = comment[1].split("&")[0]
+
+
+
+            call.respond(text)
         }
     }
 }
