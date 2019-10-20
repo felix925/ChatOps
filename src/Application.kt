@@ -7,6 +7,7 @@ import io.ktor.features.ContentNegotiation
 import io.ktor.http.ContentType
 import io.ktor.jackson.jackson
 import io.ktor.locations.get
+import io.ktor.request.receiveParameters
 import io.ktor.request.uri
 import io.ktor.response.respond
 import io.ktor.response.respondText
@@ -32,7 +33,7 @@ fun Application.module() {
         }
 
         post("/test") {
-            val comment = call.request.headers
+            val comment = call.receiveParameters()
             call.respond(comment)
         }
     }
