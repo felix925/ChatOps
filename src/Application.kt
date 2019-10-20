@@ -6,8 +6,6 @@ import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
 import io.ktor.http.ContentType
 import io.ktor.jackson.jackson
-import io.ktor.locations.Location
-import io.ktor.locations.Locations
 import io.ktor.locations.get
 import io.ktor.response.respond
 import io.ktor.response.respondText
@@ -22,25 +20,22 @@ fun Application.module() {
         jackson {}
     }
     install(Routing)
-    install(Locations)
     val TOKEN: String = System.getenv("APITOKEN")
     val APPID: String = System.getenv("CL_ID")
     val APPSEC: String = System.getenv("CL_SEC")
 
-    @Location("/test") class Message()
 
     routing {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
 
-            get<Message> {
-                val comment:String? = call.parameters["comment"]
-                comment?.run{
-                    call.respond(this)
-                }
-                call.respondText("failed")
-
+        get("/test") {
+            val comment:String? = call.parameters["comment"]
+            comment?.run{
+                call.respond(this)
             }
+            call.respondText("failed")
+        }
     }
 }
