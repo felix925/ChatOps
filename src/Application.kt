@@ -64,20 +64,13 @@ fun Application.module() {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-        get("/test{hoge}") {
+        get("/test") {
 //            if (call.sessions.get<GitHubSession>() != null) {
 //                LoginWithGitHub()
 //            }
             val caller = CallApi()
             val result = caller.CallTest(commands)
             call.respond(result)
-        }
-        get("/result") {
-            call.respondText("result")
-        }
-        get("/testresult") {
-
-            call.respondText("testresult")
         }
     }
     /*fun Route.loginWithGitHub(client: HttpClient) {
