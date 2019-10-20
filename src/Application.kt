@@ -32,24 +32,24 @@ fun Application.module() {
     install(Routing)
     install(Sessions)
 
-    val TOKEN: String = System.getenv("APITOKEN")
-    val APPID: String = System.getenv("CL_ID")
-    val APPSEC: String = System.getenv("CL_SEC")
-    var code: String = "curl https://github.com/login/oauth/authorize?client_id=$APPID&scope=repo,workflow"
-    val tokens: String = "curl -X POST -d \"code=\" -d \"client_id=$APPID\" -d \"client_secret=$APPSEC\" https://github.com/login/oauth/access_token"
-    val commands: String = "curl -X POST -H \"Authorization: token ${TOKEN}\" -H \"Accept: application/vnd.github.everest-preview+json\" -d '{\"event_type\": \"custom.preview\"}' -i  https://api.github.com/repos/SoyBeansLab/daizu-ChatOps/dispatches"
-    val exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 4)
-
-    val gitHubOAuth2Settings = listOf(
-        OAuthServerSettings.OAuth2ServerSettings(
-            name = "github",
-            authorizeUrl = "https://github.com/login/oauth/authorize",
-            accessTokenUrl = "https://github.com/login/oauth/access_token",
-            clientId = APPID,
-            clientSecret = APPSEC,
-            defaultScopes = listOf("workflow")
-        )
-    ).associateBy { it.name }
+//    val TOKEN: String = System.getenv("APITOKEN")
+//    val APPID: String = System.getenv("CL_ID")
+//    val APPSEC: String = System.getenv("CL_SEC")
+//    var code: String = "curl https://github.com/login/oauth/authorize?client_id=$APPID&scope=repo,workflow"
+//    val tokens: String = "curl -X POST -d \"code=\" -d \"client_id=$APPID\" -d \"client_secret=$APPSEC\" https://github.com/login/oauth/access_token"
+//    val commands: String = "curl -X POST -H \"Authorization: token ${TOKEN}\" -H \"Accept: application/vnd.github.everest-preview+json\" -d '{\"event_type\": \"custom.preview\"}' -i  https://api.github.com/repos/SoyBeansLab/daizu-ChatOps/dispatches"
+//    val exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 4)
+//
+//    val gitHubOAuth2Settings = listOf(
+//        OAuthServerSettings.OAuth2ServerSettings(
+//            name = "github",
+//            authorizeUrl = "https://github.com/login/oauth/authorize",
+//            accessTokenUrl = "https://github.com/login/oauth/access_token",
+//            clientId = APPID,
+//            clientSecret = APPSEC,
+//            defaultScopes = listOf("workflow")
+//        )
+//    ).associateBy { it.name }
 
     //@Location("/test") class LoginWithGitHub()
 
@@ -63,7 +63,7 @@ fun Application.module() {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
-        post("/test{hoge}") {
+        get("/test{hoge}") {
             val comment = call.parameters["hoge"]
 //            if (call.sessions.get<GitHubSession>() != null) {
 //                LoginWithGitHub()
