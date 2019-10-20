@@ -21,7 +21,6 @@ fun Application.module() {
     install(ContentNegotiation) {
         jackson {}
     }
-    install(Locations)
     @Location("/login/{type?}") class login(val type: String = "github")
 
 //    val TOKEN: String = System.getenv("APITOKEN")
