@@ -24,7 +24,6 @@ data class SlackResponse(
     val response_type: String,
     val text: String
 )
-data class login(val type:String = "github")
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -47,13 +46,7 @@ fun Application.module() {
             clientSecret = "${APPSEC}"
         )
     ).associateBy { it.name }
-    install(Authentication) {
-        oauth("gitHubOAuth") {
-            client = HttpClient(Apache)
-            providerLookup = { loginProvider[application.locations.resolve<login>(login::class, this).type] }
-            urlProvider = { url(login(it.name)) }
-        }
-    }
+
 
 
     routing {
@@ -65,25 +58,27 @@ fun Application.module() {
             val comment = call.receiveText().split("text=")
             val text:String = comment[1].split("&")[0]
             val res = SlackResponse("in_channel","${text}を受け取りました！")
-
-
+            install(Authentication) {
+                oauth("gitHubOAuth") {
+                    client = HttpClient(Apache)
+                    providerLookup = { loginProvider["github"] }
+                    urlProvider = { url("github") }
+                }
+            }
             call.respond(res)
         }
         authenticate("gitHubOAuth") {
-            location<login>() {
-                param("error") {
-                    handle {
-                        call.respond(call.parameters.getAll("error").orEmpty())
-                    }
-                }
-
+            param("error") {
                 handle {
-                    val principal = call.authentication.principal<OAuthAccessTokenResponse>()
-                    if (principal != null) {
-                        call.respond(principal)
-                    } else {
-                        call.respondText("failed")
-                    }
+                    call.respond(call.parameters.getAll("error").orEmpty())
+                }
+            }
+            handle {
+                val principal = call.authentication.principal<OAuthAccessTokenResponse>()
+                if (principal != null) {
+                    call.respond(principal)
+                } else {
+                    call.respondText("failed")
                 }
             }
         }
