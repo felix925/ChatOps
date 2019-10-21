@@ -9,6 +9,7 @@ import io.ktor.client.engine.apache.Apache
 import io.ktor.features.ContentNegotiation
 import io.ktor.http.ContentType
 import io.ktor.jackson.jackson
+import io.ktor.locations.Locations
 import io.ktor.locations.location
 import io.ktor.locations.locations
 import io.ktor.locations.url
@@ -32,7 +33,7 @@ fun Application.module() {
     install(ContentNegotiation) {
         jackson {}
     }
-    install(Routing)
+    install(Locations)
     val TOKEN: String = System.getenv("APITOKEN")
     val APPID: String = System.getenv("CL_ID")
     val APPSEC: String = System.getenv("CL_SEC")
