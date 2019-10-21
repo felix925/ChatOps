@@ -61,32 +61,15 @@ fun Application.module() {
             val comment = call.receiveText().split("text=")
             val text:String = comment[1].split("&")[0]
             val res = SlackResponse("in_channel","${text}を受け取りました！")
-            data class repository(val rpeo:String = text)
+            data class login(val type:String = "github")
             install(Authentication) {
                 oauth("gitHubOAuth") {
                     client = HttpClient(Apache)
-                    providerLookup = { loginProvider["github"] }
-                    urlProvider = { url((loginProvider["github"] ?: error("FAILED")).name) }
+                    providerLookup = { loginProvider[application.locations.resolve<login>(login::class, this).type] }
+                    urlProvider = { url(login(it.name)) }
                 }
             }
-            routing {
-                authenticate("gitHubOAuth") {
-                    param("error") {
-                        handle {
-                            call.respond(call.parameters.getAll("error").orEmpty())
-                        }
-                    }
-
-                    handle {
-                        val principal = call.authentication.principal<OAuthAccessTokenResponse>()
-                        if (principal != null) {
-                            call.respond(principal)
-                        } else {
-                            call.respond("failed")
-                        }
-                    }
-                }
-            }
+            call.respond(res)
         }
     }
 }
