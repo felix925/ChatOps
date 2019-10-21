@@ -3,15 +3,14 @@ package jp.making.felix
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
-import io.ktor.auth.Authentication
-import io.ktor.auth.OAuthServerSettings
-import io.ktor.auth.oauth
+import io.ktor.auth.*
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.apache.Apache
 import io.ktor.features.ContentNegotiation
 import io.ktor.http.ContentType
 import io.ktor.jackson.jackson
 import io.ktor.locations.get
+import io.ktor.locations.location
 import io.ktor.locations.locations
 import io.ktor.locations.url
 import io.ktor.request.receiveParameters
@@ -52,6 +51,7 @@ fun Application.module() {
     ).associateBy { it.name }
 
 
+
     routing {
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
@@ -61,16 +61,32 @@ fun Application.module() {
             val comment = call.receiveText().split("text=")
             val text:String = comment[1].split("&")[0]
             val res = SlackResponse("in_channel","${text}を受け取りました！")
-            data class login(val type:String = "github")
+            data class repository(val rpeo:String = text)
             install(Authentication) {
                 oauth("gitHubOAuth") {
                     client = HttpClient(Apache)
-                    providerLookup = { loginProvider[application.locations.resolve<login>(login::class, this).type] }
-                    urlProvider = { url(login(it.name)) }
+                    providerLookup = { loginProvider["github"] }
+                    urlProvider = { url((loginProvider["github"] ?: error("FAILED")).name) }
                 }
             }
+            routing {
+                authenticate("gitHubOAuth") {
+                    param("error") {
+                        handle {
+                            call.respond(call.parameters.getAll("error").orEmpty())
+                        }
+                    }
 
-            call.respond(res)
+                    handle {
+                        val principal = call.authentication.principal<OAuthAccessTokenResponse>()
+                        if (principal != null) {
+                            call.respond(principal)
+                        } else {
+                            call.respond("failed")
+                        }
+                    }
+                }
+            }
         }
     }
 }
