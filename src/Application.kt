@@ -50,7 +50,13 @@ fun Application.module() {
             clientSecret = "${APPSEC}"
         )
     ).associateBy { it.name }
-
+    install(Authentication) {
+        oauth("gitHubOAuth") {
+            client = HttpClient(Apache)
+            providerLookup = { loginProvider[application.locations.resolve<login>(login::class, this).type] }
+            urlProvider = { url(login(it.name)) }
+        }
+    }
 
 
     routing {
@@ -63,13 +69,7 @@ fun Application.module() {
             val text:String = comment[1].split("&")[0]
             val res = SlackResponse("in_channel","${text}を受け取りました！")
 
-            install(Authentication) {
-                oauth("gitHubOAuth") {
-                    client = HttpClient(Apache)
-                    providerLookup = { loginProvider[application.locations.resolve<login>(login::class, this).type] }
-                    urlProvider = { url(login(it.name)) }
-                }
-            }
+
             call.respond(res)
         }
         authenticate("gitHubOAuth") {
