@@ -9,18 +9,14 @@ import io.ktor.client.engine.apache.Apache
 import io.ktor.features.ContentNegotiation
 import io.ktor.http.ContentType
 import io.ktor.jackson.jackson
-import io.ktor.locations.get
 import io.ktor.locations.location
 import io.ktor.locations.locations
 import io.ktor.locations.url
-import io.ktor.request.receiveParameters
 import io.ktor.request.receiveText
-import io.ktor.request.uri
 import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.*
 import io.ktor.routing.get
-import sun.security.jgss.GSSUtil.login
 import java.util.concurrent.Executors
 
 data class SlackResponse(
