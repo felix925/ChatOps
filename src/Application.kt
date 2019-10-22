@@ -44,13 +44,9 @@ fun Application.module() {
             clientSecret = APPSEC
         )
     ).associateBy {it.name}
-    val client = HttpClient(Apache)
     val authOauthForLogin = "authOauthForLogin"
     install(ContentNegotiation) {
         jackson {}
-    }
-    environment.monitor.subscribe(ApplicationStopping) {
-        client.close()
     }
     install(DefaultHeaders)
     install(CallLogging)
@@ -63,12 +59,13 @@ fun Application.module() {
     }
     install(Authentication) {
         oauth("gitHubOAuth") {
+            client = HttpClient(Apache)
             providerLookup = { loginProviders[application.locations.resolve<login>(login::class, this).type] }
             urlProvider = { url(login(it.name)) }
         }
     }
     install(Routing) {
-        index(client)
+        index()
         authenticate(authOauthForLogin) {
             location<login>() {
                 param("error") {
