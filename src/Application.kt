@@ -61,7 +61,7 @@ fun Application.module() {
                 oauth("gitHubOAuth") {
                     client = HttpClient(Apache)
                     providerLookup = { loginProvider["github"] }
-                    urlProvider = { url("githubOAuth") }
+                    urlProvider = { url("gitHubOAuth") }
                 }
             }
             call.respond(res)
