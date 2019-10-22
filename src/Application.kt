@@ -23,7 +23,7 @@ import io.ktor.sessions.cookie
 import java.util.concurrent.Executors
 
 @Location("/") class Index()
-@Location("/test") class login(val type:String? = "")
+@Location("/test") class login(val type:String? = "github")
 
 data class GitHubSession(val accessToken: String)
 
@@ -60,7 +60,13 @@ fun Application.module() {
     install(FreeMarker) {
         templateLoader = ClassTemplateLoader(Application::class.java.classLoader, "templates")
     }
-
+    install(Authentication) {
+        oauth("gitHubOAuth") {
+            client
+            providerLookup = { loginProviders[application.locations.resolve<login>(login::class, this).type] }
+            urlProvider = { url(login(it.name)) }
+        }
+    }
     install(Routing) {
         index(client)
         authenticate(authOauthForLogin) {
