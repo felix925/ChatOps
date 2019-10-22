@@ -2,7 +2,6 @@ package jp.making.felix
 
 import freemarker.cache.ClassTemplateLoader
 import io.ktor.application.Application
-import io.ktor.application.ApplicationStopping
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.auth.*
@@ -20,7 +19,6 @@ import io.ktor.routing.*
 import io.ktor.sessions.SessionStorageMemory
 import io.ktor.sessions.Sessions
 import io.ktor.sessions.cookie
-import java.util.concurrent.Executors
 @KtorExperimentalLocationsAPI
 @Location("/") class Index()
 @KtorExperimentalLocationsAPI
@@ -44,7 +42,6 @@ fun Application.module() {
             clientSecret = APPSEC
         )
     ).associateBy {it.name}
-    val authOauthForLogin = "authOauthForLogin"
     install(ContentNegotiation) {
         jackson {}
     }
@@ -66,7 +63,7 @@ fun Application.module() {
     }
     install(Routing) {
         index()
-        authenticate(authOauthForLogin) {
+        authenticate("gitHubOAuth") {
             location<login>() {
                 param("error") {
                     handle {
