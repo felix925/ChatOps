@@ -21,8 +21,9 @@ import io.ktor.sessions.SessionStorageMemory
 import io.ktor.sessions.Sessions
 import io.ktor.sessions.cookie
 import java.util.concurrent.Executors
-
+@KtorExperimentalLocationsAPI
 @Location("/") class Index()
+@KtorExperimentalLocationsAPI
 @Location("/test") class login(val type:String? = "github")
 
 data class GitHubSession(val accessToken: String)
@@ -62,7 +63,6 @@ fun Application.module() {
     }
     install(Authentication) {
         oauth("gitHubOAuth") {
-            client
             providerLookup = { loginProviders[application.locations.resolve<login>(login::class, this).type] }
             urlProvider = { url(login(it.name)) }
         }
