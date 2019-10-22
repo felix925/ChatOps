@@ -32,7 +32,6 @@ fun Application.module() {
     install(ContentNegotiation) {
         jackson {}
     }
-    install(Locations)
     val TOKEN: String = System.getenv("APITOKEN")
     val APPID: String = System.getenv("CL_ID")
     val APPSEC: String = System.getenv("CL_SEC")
