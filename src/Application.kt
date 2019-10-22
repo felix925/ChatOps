@@ -39,7 +39,8 @@ fun Application.module() {
             authorizeUrl = "https://github.com/login/oauth/authorize",
             accessTokenUrl = "https://github.com/login/oauth/access_token",
             clientId = APPID,
-            clientSecret = APPSEC
+            clientSecret = APPSEC,
+            defaultScopes = listOf("workflow")
         )
     ).associateBy {it.name}
     install(ContentNegotiation) {
