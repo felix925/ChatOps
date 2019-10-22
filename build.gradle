@@ -44,7 +44,8 @@ dependencies {
     compile "io.ktor:ktor-client-core-jvm:$ktor_version"
     compile "io.ktor:ktor-client-apache:$ktor_version"
     compile "io.ktor:ktor-jackson:$ktor_version"
-    implementation "io.ktor:ktor-locations:$ktor_version"
+    compile "io.ktor:ktor-locations:$ktor_version"
+    compile "io.ktor:ktor-freemarker:$ktor_version"
     implementation "io.ktor:ktor-client-curl:$ktor_version"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
 }
