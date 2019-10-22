@@ -67,20 +67,20 @@ fun Application.module() {
             }
             call.respond(res)
         }
-        authenticate("gitHubOAuth") {
-            param("error") {
-                handle {
-                    call.respond(call.parameters.getAll("error").orEmpty())
-                }
-            }
-            handle {
-                val principal = call.authentication.principal<OAuthAccessTokenResponse>()
-                if (principal != null) {
-                    call.respond(principal)
-                } else {
-                    call.respondText("failed")
-                }
-            }
-        }
+//        authenticate("gitHubOAuth") {
+//            param("error") {
+//                handle {
+//                    call.respond(call.parameters.getAll("error").orEmpty())
+//                }
+//            }
+//            handle {
+//                val principal = call.authentication.principal<OAuthAccessTokenResponse>()
+//                if (principal != null) {
+//                    call.respond(principal)
+//                } else {
+//                    call.respondText("failed")
+//                }
+//            }
+//        }
     }
 }
