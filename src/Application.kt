@@ -33,7 +33,7 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 fun Application.module() {
     val APPID: String = System.getenv("CL_ID")
     val APPSEC: String = System.getenv("CL_SEC")
-    val loginProviders = listOf(
+    val loginProviders =
         OAuthServerSettings.OAuth2ServerSettings(
             name = "github",
             authorizeUrl = "https://github.com/login/oauth/authorize",
@@ -41,8 +41,7 @@ fun Application.module() {
             clientId = APPID,
             clientSecret = APPSEC,
             defaultScopes = listOf("workflow")
-        )
-    ).associateBy {it.name}
+    )
     install(ContentNegotiation) {
         jackson {}
     }
@@ -57,15 +56,16 @@ fun Application.module() {
     }
     install(Authentication) {
         oauth("gitHubOAuth") {
-            client = HttpClient(Apache)
-            providerLookup = { loginProviders[application.locations.resolve<login>(login::class, this).type] }
-            urlProvider = { url(login(it.name)) }
+            client
+            providerLookup = { loginProviders }
+            urlProvider = {"https://felixops.herokuapp.com/test"}
+            //urlProvider = { url(login(it.name)) }
         }
     }
     install(Routing) {
         index()
         authenticate("gitHubOAuth") {
-            location<login>() {
+            location<login>{
                 param("error") {
                     handle {
                         call.respondText { "failed" }
