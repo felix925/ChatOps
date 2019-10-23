@@ -46,7 +46,7 @@ fun Application.module() {
             accessTokenUrl = "https://github.com/login/oauth/access_token",
             clientId = APPID,
             clientSecret = APPSEC,
-            defaultScopes = listOf("workflow","repo:status")
+            defaultScopes = listOf("workflow","repo")
     )
     install(ContentNegotiation) {
         jackson {}
@@ -80,10 +80,10 @@ fun Application.module() {
 
                 handle {
                     val principal = call.authentication.principal<OAuthAccessTokenResponse>()
-//                    var token = principal.toString()
-//                    token = token.replace("OAuth2(accessToken=","")
-//                    token = token.split(",")[0]
-                    val token = call.parameters["code"]
+                    var token = principal.toString()
+                    token = token.replace("OAuth2(accessToken=","")
+                    token = token.split(",")[0]
+//                    val token = call.parameters["code"]
                     token?.apply {
                         val callApi = CallApi(token)
                         call.respondText { callApi.Calls() }
