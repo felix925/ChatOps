@@ -4,7 +4,7 @@ import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class CallApi(token:String){
-    private val commands: String = "curl¥ -X ¥POST¥ -H ¥\"Authorization: token ${token}\"¥ -H ¥\"Accept: application/vnd.github.everest-preview+json\"¥ -i ¥'https://api.github.com/repos/felix925/ChatOps/dispatches'"
+    private val commands: String = "curl¥ -X ¥POST¥ -H ¥\"Authorization: token ${token}\"¥ -H ¥\"Accept: application/vnd.github.everest-preview+json\"¥ -i ¥'https://api.github.com/repos/SoyBeansLab/daizu-ChatOps/dispatches'"
     fun Calls():String{
         val result:String? = commands.runCommand()
         result?.apply {
