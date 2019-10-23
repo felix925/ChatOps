@@ -82,11 +82,9 @@ fun Application.module() {
                     token = token.replace("OAuth2(accessToken=","")
                     token = token.split(",")[0]
 //                    val token = call.parameters["code"]
-                    token?.apply {
-                        val callApi = CallApi(token)
-                        call.respondText { callApi.Calls() }
+                    principal?.apply {
+                        call.respond(this)
                     }
-                    call.respondText { "failed" }
                 }
 
             }
