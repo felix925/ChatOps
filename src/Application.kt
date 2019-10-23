@@ -72,16 +72,12 @@ fun Application.module() {
                     }
                 }
 
-                handle {
-                    val principal = call.authentication.principal<OAuthAccessTokenResponse>()
-                    principal?.apply {
-                        var token:String = principal.toString()
-                        token.replace("OAuth2(accessToken=","")
-                        token.split(",")[0]
-                        call.respond(token)
-                    }
-                    call.respondText { "in handle but failed" }
-                }
+//                handle {
+//                    val principal = call.authentication.principal<OAuthAccessTokenResponse>()
+//                    principal?.apply {
+//                    }
+//                    call.respondText { "in handle but failed" }
+//                }
             }
         }
     }
