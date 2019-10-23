@@ -3,8 +3,8 @@ package jp.making.felix
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-class CallApi(token:Token,repo:Repository){
-    private val commands: String = "curl¥ -X ¥POST¥ -H ¥\"Authorization: token ${token}\"¥ -H ¥\"Accept: application/vnd.github.everest-preview+json\"¥ -d ¥'{\"event_type\": \"custom.preview\"}'¥ -i  ¥https://api.github.com/repos/SoyBeansLab/${repo}/dispatches"
+class CallApi(token:String){
+    private val commands: String = "curl¥ -X ¥POST¥ -H ¥\"Authorization: token ${token}\"¥ -H ¥\"Accept: application/vnd.github.everest-preview+json\"¥ -d ¥'{\"event_type\": \"custom.preview\"}'¥ -i  ¥https://api.github.com/repos/SoyBeansLab/daizu-ChatOps/dispatches"
     fun Calls():String{
         val result:String? = commands.runCommand()
         result?.apply {

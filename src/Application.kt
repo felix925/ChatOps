@@ -82,9 +82,7 @@ fun Application.module() {
                     var token = principal.toString()
                     token = token.replace("OAuth2(accessToken=","")
                     token = token.split(",")[0]
-                    val tokens = Token(token)
-                    val repo = Repository("daizu-ChatOps")
-                    val callApi = CallApi(tokens,repo)
+                    val callApi = CallApi(token)
                     call.respondText {callApi.Calls()}
                 }
 
