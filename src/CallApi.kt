@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit
 
 class CallApi(token:String){
     //private val commands: String = "curl¥ -X ¥POST¥ -H ¥\"Authorization: token ${token}\"¥ -H ¥\"Accept: application/vnd.github.everest-preview+json\"¥ -i ¥https://api.github.com/repos/SoyBeansLab/daizu-ChatOps/dispatches"
-    private val commands = "curl¥ -H ¥\"Authorization: token ${token}\" https://api.github.com/user"
+    private val commands = "curl¥ -H ¥\"Authorization: token ${token}\" ¥https://api.github.com/user"
     fun Calls():String{
         val result:String? = commands.runCommand()
         result?.apply {
