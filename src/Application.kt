@@ -13,6 +13,7 @@ import io.ktor.features.DefaultHeaders
 import io.ktor.freemarker.FreeMarker
 import io.ktor.jackson.jackson
 import io.ktor.locations.*
+import io.ktor.request.receiveParameters
 import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.*
@@ -79,11 +80,15 @@ fun Application.module() {
 
                 handle {
                     val principal = call.authentication.principal<OAuthAccessTokenResponse>()
-                    var token = principal.toString()
-                    token = token.replace("OAuth2(accessToken=","")
-                    token = token.split(",")[0]
-                    val callApi = CallApi(token)
-                    call.respondText {callApi.Calls()}
+//                    var token = principal.toString()
+//                    token = token.replace("OAuth2(accessToken=","")
+//                    token = token.split(",")[0]
+                    val token = call.receiveParameters()["code"]
+                    token?.apply {
+                        val callApi = CallApi(token)
+                        call.respondText { callApi.Calls() }
+                    }
+                    call.respondText { "failed" }
                 }
 
             }
