@@ -29,8 +29,6 @@ import java.util.concurrent.TimeUnit
 @Location("/test") class login(val type:String? = "github")
 
 data class GitHubSession(val accessToken: String)
-data class Token(val token:String)
-data class Repository(val repository:String)
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
