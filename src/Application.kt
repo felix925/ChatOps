@@ -45,7 +45,7 @@ fun Application.module() {
             accessTokenUrl = "https://github.com/login/oauth/access_token",
             clientId = APPID,
             clientSecret = APPSEC,
-            defaultScopes = listOf("workflow")
+            defaultScopes = listOf("workflow","repo:status")
     )
     install(ContentNegotiation) {
         jackson {}
