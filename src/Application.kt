@@ -74,9 +74,8 @@ fun Application.module() {
 
                 handle {
                     val principal = call.authentication.principal<OAuthAccessTokenResponse>()
-                    principal?.apply {
-                    }
-                    call.respondText { "in handle but failed" }
+                    var token = principal.toString()
+                    call.respondText {token}
                 }
             }
         }
