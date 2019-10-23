@@ -75,6 +75,8 @@ fun Application.module() {
                 handle {
                     val principal = call.authentication.principal<OAuthAccessTokenResponse>()
                     var token = principal.toString()
+                    token = token.replace("OAuth2(accessToken=","")
+                    token = token.split(",")[0]
                     call.respondText {token}
                 }
             }
