@@ -19,12 +19,17 @@ import io.ktor.routing.*
 import io.ktor.sessions.SessionStorageMemory
 import io.ktor.sessions.Sessions
 import io.ktor.sessions.cookie
+import java.io.IOException
+import java.util.concurrent.TimeUnit
+
 @KtorExperimentalLocationsAPI
 @Location("/") class Index()
 @KtorExperimentalLocationsAPI
 @Location("/test") class login(val type:String? = "github")
 
 data class GitHubSession(val accessToken: String)
+data class Token(val token:String)
+data class Repository(val repository:String)
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -77,11 +82,16 @@ fun Application.module() {
                     var token = principal.toString()
                     token = token.replace("OAuth2(accessToken=","")
                     token = token.split(",")[0]
-                    call.respondText {token}
+                    val tokens = Token(token)
+                    val repo = Repository("daizu-ChatOps")
+                    val callApi = CallApi(tokens,repo)
+                    call.respondText {callApi.Calls()}
                 }
+
             }
         }
     }
+
 //    val TOKEN: String = System.getenv("APITOKEN")
 //    val APPID: String = System.getenv("CL_ID")
 //    val APPSEC: String = System.getenv("CL_SEC")
