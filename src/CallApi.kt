@@ -16,7 +16,7 @@ class CallApi(token:String){
     private fun String.runCommand():String? {
         try {
             val commands = this.replace("\\","")
-            val parts = commands.split(" ".toRegex())
+            val parts = commands.split("¥".toRegex())
             val proc = ProcessBuilder(*parts.toTypedArray())
                 .redirectOutput(ProcessBuilder.Redirect.PIPE)
                 .redirectError(ProcessBuilder.Redirect.PIPE)
