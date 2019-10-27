@@ -83,7 +83,7 @@ fun Application.module() {
                     token = token.split(",")[0]
 //                    val token = call.parameters["code"]
                     token.apply {
-                        val calls: CallApi = CallApi(token)
+                        val calls = CallApi(token)
                         val result: String = calls.Calls()
                         call.respond(result)
                     }
