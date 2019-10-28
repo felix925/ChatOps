@@ -62,7 +62,7 @@ fun Application.module() {
         oauth("gitHubOAuth") {
             client = HttpClient(Apache)
             providerLookup = { loginProviders }
-            urlProvider = {"https://felixops.herokuapp.com/test"}
+            urlProvider = {""}
             //urlProvider = { url(login(it.name)) }
         }
     }
