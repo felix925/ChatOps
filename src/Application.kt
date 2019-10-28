@@ -82,12 +82,11 @@ fun Application.module() {
                     token = token.replace("OAuth2(accessToken=","")
                     token = token.split(",")[0]
 //                    val token = call.parameters["code"]
-//                    token?.apply {
-//                        val calls = CallApi(this)
-//                        val result: String = calls.Calls()
-//                        call.respond(result)
-//                    }
-                    call.respond(token)
+                    token?.apply {
+                        val calls = CallApi(this)
+                        val result: String = calls.Calls()
+                        call.respond(result)
+                    }
                     call.respondText { "token is null" }
                 }
 
