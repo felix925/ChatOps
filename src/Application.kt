@@ -77,16 +77,20 @@ fun Application.module() {
                 }
 
                 handle {
-                    val principal = call.authentication.principal<OAuthAccessTokenResponse>()
+                    //val principal = call.authentication.principal<OAuthAccessTokenResponse>()
+                    val principal = call.principal<OAuthAccessTokenResponse.OAuth2>()
                     var token = principal.toString()
                     token = token.replace("OAuth2(accessToken=","")
                     token = token.split(",")[0]
-//                    val token = call.parameters["code"]
-                    token?.apply {
-                        val calls = CallApi(this)
-                        val result: String = calls.Calls()
-                        call.respond(result)
+                    principal?.apply {
+                        call.respond(principal)
                     }
+//                    val token = call.parameters["code"]
+//                    token?.apply {
+//                        val calls = CallApi(this)
+//                        val result: String = calls.Calls()
+//                        call.respond(result)
+//                    }
                     call.respondText { "token is null" }
                 }
 
