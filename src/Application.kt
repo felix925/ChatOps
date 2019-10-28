@@ -62,7 +62,7 @@ fun Application.module() {
         oauth("gitHubOAuth") {
             client = HttpClient(Apache)
             providerLookup = { loginProviders }
-            urlProvider = {""}
+            urlProvider = {"https://felixops.herokuapp.com/test"}
             //urlProvider = { url(login(it.name)) }
         }
     }
@@ -78,10 +78,10 @@ fun Application.module() {
 
                 handle {
                     val principal = call.authentication.principal<OAuthAccessTokenResponse>()
-//                    var token = principal.toString()
-//                    token = token.replace("OAuth2(accessToken=","")
-//                    token = token.split(",")[0]
-                    val token = call.parameters["code"]
+                    var token = principal.toString()
+                    token = token.replace("OAuth2(accessToken=","")
+                    token = token.split(",")[0]
+//                    val token = call.parameters["code"]
                     token?.apply {
                         val calls = CallApi(this)
                         val result: String = calls.Calls()
