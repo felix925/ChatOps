@@ -37,6 +37,7 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 fun Application.module() {
     val APPID: String = System.getenv("CL_ID")
     val APPSEC: String = System.getenv("CL_SEC")
+    val TOKEN: String = System.getenv("TOKEN")
     val loginProviders =
         OAuthServerSettings.OAuth2ServerSettings(
             name = "github",
@@ -83,7 +84,7 @@ fun Application.module() {
                     token = token.split(",")[0]
 //                    val token = call.parameters["code"]
                     token.apply {
-                        val calls = CallApi(this)
+                        val calls = CallApi(TOKEN)
                         val result = calls.Calls()
                         call.respond(result)
                     }
