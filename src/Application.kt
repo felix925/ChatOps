@@ -84,7 +84,7 @@ fun Application.module() {
                     val token = call.parameters["code"]
                     token?.apply {
                         val calls = CallApi(this)
-                        val result: String = calls.Calls()
+                        val result = calls.Calls()
                         call.respond(result)
                     }
                     call.respondText { "token is null" }
