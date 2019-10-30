@@ -5,17 +5,17 @@ import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class CallApi(token:String){
-    private var commands: String = """curl¥ -X ¥POST¥ -H ¥"Authorization: token $token"¥ -H ¥"Accept: application/vnd.github.everest-preview+json"¥ -d ¥'{"event_type": "custom.preview"}'¥ -i ¥https://api.github.com/repos/felix925/ChatOps/dispatches"""
+    private var commands: String = """curl¥ -X ¥POST¥ -H ¥'Authorization: token $token'¥ -H ¥'Accept: application/vnd.github.everest-preview+json'¥ -d ¥ {'event_type': 'custom.preview'}¥ -i ¥https://api.github.com/repos/felix925/ChatOps/dispatches"""
     //private val commands = "curl -H \"Authorization: token ${token}\" -H \"Accept: application/vnd.github.everest-preview+json\" https://api.github.com/users/felix925"
-    fun Calls():List<String>{
-//        val result:String? = commands.runCommand()
-//        result?.apply {
-//            return this
-//        }
-//        return "failed"
+    fun Calls():String{
+        val result:String? = commands.runCommand()
+        result?.apply {
+            return this
+        }
+        return "failed"
 //        val command = commands.replace("\\","")
-        val parts = commands.split("¥".toRegex())
-        return parts
+//        val parts = commands.split("¥".toRegex())
+//        return parts
     }
     private fun String.runCommand():String? {
         try {
